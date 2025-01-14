@@ -7,6 +7,12 @@ export default {
         Inter: ["Inter", "sans-serif"],
         Poppins: ["Poppins", "sans-serif"],
       },
+
+      colors: {
+        primary: "#fff",
+        lightGreen: "#22c55e",
+        brown: "#654321",
+      },
     },
   },
   plugins: [],
