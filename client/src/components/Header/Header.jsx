@@ -1,6 +1,7 @@
 import { useState } from "react"
 import PropTypes from "prop-types"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
+import { NavLink } from "react-router-dom"
 
 import logo from "../../assets/logo.png"
 
@@ -37,11 +38,11 @@ export default function Header() {
 
       {/* larger screen menu */}
       <ul className="hidden w-fit h-full md:flex items-center gap-7">
-        <Link text="Home" />
-        <Link text="Store" />
-        <Link text="Blog" />
-        <Link text="About" />
-        <Link text="Contact" />
+        <Link text="Home" to="/" />
+        <Link text="Store" to="store" />
+        <Link text="Blog" to="blog" />
+        <Link text="About" to="about" />
+        <Link text="Contact" to="contact" />
       </ul>
 
       <button className="hidden md:block w-40 h-12 rounded-3xl text-sm bg-green-500">
@@ -51,10 +52,15 @@ export default function Header() {
   )
 }
 
-const Link = ({ text }) => {
-  return <li className="text-sm list-none cursor-pointer">{text}</li>
+const Link = ({ text, to }) => {
+  return (
+    <NavLink to={to} className="text-sm list-none cursor-pointer">
+      {text}
+    </NavLink>
+  )
 }
 
 Link.propTypes = {
   text: PropTypes.string,
+  to: PropTypes.string,
 }
