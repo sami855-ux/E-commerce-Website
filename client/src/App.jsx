@@ -1,11 +1,11 @@
-import Header from "./components/Header/Header"
-import Hero from "./components/Hero/Hero"
+import { Header, Hero, Service } from "./components"
 
 export default function App() {
   return (
     <>
       <Header />
       <Hero />
+      <Service />
     </>
   )
 }
