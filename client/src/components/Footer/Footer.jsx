@@ -14,7 +14,7 @@ import logo from "../../assets/logo.png"
 export default function Footer() {
   return (
     <div className="w-full h-[58vh] flex justify-center items-center flex-col gap-3 mt-16">
-      <section className="w-[87%] h-96 flex gap-7 ">
+      <section className="w-full md:w-[87%] min-h-96 flex flex-col md:flex-row gap-7 justify-center items-center mt-32 md:mt-0 ">
         <div className="w-[420px] h-full">
           <img src={logo} alt="Logo image" className="w-32 h-20" />
           <p className="text-xs text-gray-700 pt-5">
@@ -30,7 +30,7 @@ export default function Footer() {
             <Icon icon={<FaLinkedinIn color="white" />} href="#" />
           </section>
         </div>
-        <div className="h-full flex gap-3">
+        <div className="min-h-full w-full md:w-fit pl-12 md:pl-0 flex flex-col md:flex-row gap-3">
           <FooterSection
             header=" Useful links"
             textList={[
@@ -66,7 +66,21 @@ export default function Footer() {
           />
         </div>
       </section>
-      <div className="w-full h-16 bg-gradient-to-r from-blue-500 to-green-400"></div>
+      <div className="w-full min-h-16 bg-gradient-to-r from-blue-500 to-green-400 px-40 flex items-center justify-between">
+        <p className="text-xs text-white"> &copy; All right are reserved</p>
+
+        <section className="flex gap-4 ">
+          <a href="#" className="text-xs text-white">
+            Privacy policy
+          </a>
+          <a href="#" className="text-xs text-white">
+            About us
+          </a>
+          <a href="#" className="text-xs text-white">
+            Contact
+          </a>
+        </section>
+      </div>
     </div>
   )
 }
