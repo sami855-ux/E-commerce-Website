@@ -8,8 +8,8 @@ export default function Hero() {
   const [isHover, setIsHover] = useState(false)
 
   return (
-    <div className="w-full min-h-screen flex  items-center justify-center md:px-36 lg:px-48 px-5">
-      <section className="w-2/3 md:w-1/3 h-full flex justify-end flex-col lg:pt-16">
+    <div className="w-full min-h-[83vh] flex items-center justify-center md:px-36 lg:px-48 px-5 relative">
+      <section className="w-2/3 md:w-1/3 h-full flex justify-end flex-col lg:pb-16 absolute z-20 left-44">
         <p className="font-Poppins capitalize tracking-wider text-lightGreen">
           We are expert team
         </p>
@@ -58,11 +58,11 @@ export default function Hero() {
           Explore More
         </button> */}
       </section>
-      <div className="w-2/3 h-full relative md:-top-10 md:static">
+      <div className="w-2/3 h-full absolute overflow-hidden z-0 right-36 ">
         <img
           src={heroImage}
           alt="peoples gathering in shopping"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transform  relative left-36"
         />
       </div>
     </div>

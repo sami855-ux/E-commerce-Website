@@ -29,7 +29,7 @@ export default function Header() {
         duration: 0.35,
         ease: "easeInOut",
       }}
-      className="w-full h-[75px] bg-white md:w-[78vw] lg:w-[85vw] sticky z-50 md:top-4 md:mx-auto md:left-40 md:rounded-3xl flex px-12 md:px-4 items-center justify-between"
+      className="w-full h-[75px] bg-[#f1f1f1] md:w-[78vw] lg:w-[85vw] sticky z-50 md:top-4 md:mx-auto md:left-40 md:rounded-3xl flex px-12 md:px-4 items-center justify-between"
     >
       <section className="h-full w-32">
         <img src={logo} alt="image for e-commerce" className="w-28 h-full" />
