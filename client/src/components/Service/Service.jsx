@@ -8,7 +8,7 @@ import imgThree from "../../assets/user.png"
 
 export default function Service() {
   return (
-    <div className="w-full min-h-[65vh] flex justify-center items-center pb-10">
+    <div className="w-full min-h-[78vh] flex justify-center items-center pb-10 mt-20">
       <section className="md:w-[70%] lg:w-[75%] min-h-96 grid grid-cols-1 grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-3 justify-center items-center lg:space-x-3 lg:gap-0">
         <div className="w-[300px] md:h-[240px] lg:w-[240px] lg:h-[70%] bg-gradient-to-b from-blue-500 to-green-400 p-4 pt-10 rounded-md mr-3">
           <h2 className="text-lg text-white font-light">Our services</h2>
