@@ -32,20 +32,20 @@ export default function Header() {
       }}
       className="w-full h-[75px] bg-[#f1f1f1] md:w-[78vw] lg:w-[85vw] sticky z-50 md:top-4 md:mx-auto md:left-40 md:rounded-3xl flex px-12 md:px-4 items-center justify-between"
     >
-      <section className="h-full w-32">
-        <img src={logo} alt="image for e-commerce" className="w-28 h-full" />
+      <section className="w-32 h-full">
+        <img src={logo} alt="image for e-commerce" className="h-full w-28" />
       </section>
 
       {/* larger screen menu */}
-      <ul className="hidden w-fit h-full md:flex items-center gap-7">
+      <ul className="items-center hidden h-full w-fit md:flex gap-7">
         <Link text="Home" to="/" />
-        <Link text="Store" to="store" />
-        <Link text="Blog" to="blog" />
-        <Link text="About" to="about" />
-        <Link text="Contact" to="contact" />
+        <Link text="Store" to="/store" />
+        <Link text="Blog" to="/blog" />
+        <Link text="About" to="/about" />
+        <Link text="Contact" to="/contact" />
       </ul>
 
-      <button className="hidden md:block w-40 h-12 rounded-3xl text-sm bg-green-500">
+      <button className="hidden w-40 h-12 text-sm bg-green-500 md:block rounded-3xl">
         Free consultation
       </button>
     </motion.div>

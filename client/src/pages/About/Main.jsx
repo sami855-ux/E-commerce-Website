@@ -30,7 +30,7 @@ const Testimonials = [
 ]
 
 export default function Main() {
-  const [testimonial, setTestimonial] = useState(Testimonials)
+  const [testimonial] = useState(Testimonials)
   const [index, setIndex] = useState(0)
 
   const handleIndex = (index) => {

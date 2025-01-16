@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import "./index.css"
 import App from "./App.jsx"
 import About from "./pages/About/About.jsx"
+import Contact from "./pages/Contact/Contact.jsx"
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
     element: <App />,
   },
   { path: "/about", element: <About /> },
+  { path: "/contact", element: <Contact /> },
 ])
 
 createRoot(document.getElementById("root")).render(
