@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         Inter: ["Inter", "sans-serif"],
         Poppins: ["Poppins", "sans-serif"],
+        Gluten: ["Gluten", "sans-serif"],
       },
 
       colors: {
