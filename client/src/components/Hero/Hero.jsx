@@ -1,30 +1,49 @@
 import { useState } from "react"
+import { useEffect } from "react"
 import { motion } from "framer-motion"
+import { client, urlFor } from "../../../../server/lib/client"
 
-import heroImage from "../../assets/slider-layer-1.png"
 import { HiArrowRight } from "react-icons/hi"
+import Loader from "../../ui/LoaderImg/loader"
 
 export default function Hero() {
   const [isHover, setIsHover] = useState(false)
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const query = '*[_type == "images"]'
+        const result = await client.fetch(query)
+        setData(result)
+      } catch (err) {
+        console.log(`Error: ${err}`)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  console.log(data)
 
   return (
     <div className="w-full min-h-[83vh] flex items-center justify-center md:px-36 lg:px-48 px-5 relative">
-      <section className="w-2/3 md:w-1/3 h-full flex justify-end flex-col lg:pb-16 absolute z-20 left-44">
-        <p className="font-Poppins capitalize tracking-wider text-lightGreen">
+      <section className="absolute z-20 flex flex-col justify-end w-2/3 h-full md:w-1/3 lg:pb-16 left-44">
+        <p className="tracking-wider capitalize font-Poppins text-lightGreen">
           We are expert team
         </p>
 
-        <h2 className="font-bold text-lg md:text-3xl mt-3 py-2">
+        <h2 className="py-2 mt-3 text-lg font-bold md:text-3xl">
           We sell products that makes people&apos;s{" "}
           <span className="text-lightGreen">lives</span> easier & better.
         </h2>
-        <p className="font-light text-xs md:text-sm">
+        <p className="text-xs font-light md:text-sm">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta
           accusamus reiciendis doloremque dolor eligendi inventore?
         </p>
 
         <div
-          className="w-44 md:w-56 flex justify-center items-center bg-gray-400  py-3 px-9 relative overflow-clip rounded-3xl cursor-pointer mt-5"
+          className="relative flex items-center justify-center py-3 mt-5 bg-gray-400 cursor-pointer w-44 md:w-56 px-9 overflow-clip rounded-3xl"
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
@@ -46,11 +65,11 @@ export default function Hero() {
             }}
             className="relative z-10"
           >
-            <p className="font-Poppins text-xs md:text-sm font-semibold">
+            <p className="text-xs font-semibold font-Poppins md:text-sm">
               Explore More
             </p>
           </motion.div>
-          <motion.div className="flex  items-center absolute right-2">
+          <motion.div className="absolute flex items-center right-2">
             <HiArrowRight color="white" />
           </motion.div>
         </div>
@@ -58,12 +77,16 @@ export default function Hero() {
           Explore More
         </button> */}
       </section>
-      <div className="w-2/3 h-full absolute overflow-hidden z-0 right-36 ">
-        <img
-          src={heroImage}
-          alt="peoples gathering in shopping"
-          className="w-full h-full object-cover transform  relative left-36"
-        />
+      <div className="absolute z-0 w-2/3 h-full overflow-hidden right-36 ">
+        {data && data.length > 0 ? (
+          <img
+            src={urlFor(data[0]?.image)}
+            alt="peoples gathering in shopping"
+            className="relative object-cover w-full h-full transform left-36"
+          />
+        ) : (
+          <Loader />
+        )}
       </div>
     </div>
   )
