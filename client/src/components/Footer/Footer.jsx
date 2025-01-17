@@ -5,32 +5,53 @@ import {
   FaLinkedinIn,
   FaAngleRight,
 } from "react-icons/fa"
-import { useState } from "react"
-import PropTypes from "prop-types"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import PropTypes from "prop-types"
 
-import logo from "../../assets/logo.png"
+import { client, urlFor } from "../../../../server/lib/client"
 
 export default function Footer() {
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const query = '*[_type == "images"]'
+        const result = await client.fetch(query)
+        setData(result)
+      } catch (err) {
+        console.log(`Error: ${err}`)
+      }
+    }
+
+    fetchData()
+  }, [])
   return (
     <div className="w-full h-[58vh] flex justify-center items-center flex-col gap-3 mt-16">
       <section className="w-full md:w-[87%] min-h-96 flex flex-col md:flex-row gap-7 justify-center items-center mt-32 md:mt-0 ">
         <div className="w-[420px] h-full">
-          <img src={logo} alt="Logo image" className="w-32 h-20" />
-          <p className="text-xs text-gray-700 pt-5">
+          {data && data.length > 0 ? (
+            <img
+              src={urlFor(data[0].image)}
+              alt="Logo image"
+              className="w-32 h-20"
+            />
+          ) : null}
+          <p className="pt-5 text-xs text-gray-700">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error
             autem a recusandae reprehenderit quo quisquam id, perspiciatis
             similique quibusdam explicabo? Totam hic dolore adipisci voluptatem?
           </p>
 
-          <section className="w-full h-28 flex items-center gap-3">
+          <section className="flex items-center w-full gap-3 h-28">
             <Icon icon={<FaFacebookF color="white" />} href="#" />
             <Icon icon={<FaTwitter color="white" />} href="#" />
             <Icon icon={<FaInstagram color="white" />} href="#" />
             <Icon icon={<FaLinkedinIn color="white" />} href="#" />
           </section>
         </div>
-        <div className="min-h-full w-full md:w-fit pl-12 md:pl-0 flex flex-col md:flex-row gap-3">
+        <div className="flex flex-col w-full min-h-full gap-3 pl-12 md:w-fit md:pl-0 md:flex-row">
           <FooterSection
             header=" Useful links"
             textList={[
@@ -66,7 +87,7 @@ export default function Footer() {
           />
         </div>
       </section>
-      <div className="w-full min-h-16 bg-gradient-to-r from-blue-500 to-green-400 px-40 flex items-center justify-between">
+      <div className="flex items-center justify-between w-full px-40 min-h-16 bg-gradient-to-r from-blue-500 to-green-400">
         <p className="text-xs text-white"> &copy; All right are reserved</p>
 
         <section className="flex gap-4 ">
@@ -89,7 +110,7 @@ const Icon = ({ icon, href }) => {
   return (
     <a
       href={href}
-      className="w-9 h-9 flex justify-center items-center rounded-full bg-lightGreen cursor-pointer"
+      className="flex items-center justify-center rounded-full cursor-pointer w-9 h-9 bg-lightGreen"
     >
       {icon}
     </a>
@@ -104,14 +125,14 @@ Icon.propTypes = {
 const FooterSection = ({ header, textList }) => {
   return (
     <section className="w-[200px]">
-      <h2 className="text-xs font-semibold text-gray-700 py-3 uppercase">
+      <h2 className="py-3 text-xs font-semibold text-gray-700 uppercase">
         {header}
       </h2>
       <div className="relative w-[90%] h-5 flex justify-center items-center">
         <span className="w-2 h-2 rounded-full bg-brown/50"></span>
         <span className="w-full h-[1px] bg-brown/50"></span>
       </div>
-      <div className="flex justify-center gap-1 flex-col w-full">
+      <div className="flex flex-col justify-center w-full gap-1">
         {textList.map((list, listIndex) => (
           <FooterList text={list} key={listIndex} />
         ))}
@@ -135,7 +156,7 @@ const FooterList = ({ text }) => {
       animate={{
         x: isHover ? 5 : 0,
       }}
-      className="w-full h-5 flex gap-2 items-center cursor-pointer"
+      className="flex items-center w-full h-5 gap-2 cursor-pointer"
     >
       <FaAngleRight color="#22c55e" size={15} />
       <motion.span

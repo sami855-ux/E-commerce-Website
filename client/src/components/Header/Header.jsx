@@ -55,7 +55,7 @@ export default function Header({ items = [] }) {
         <section className="w-32 h-full">
           {data && data.length > 0 ? (
             <img
-              src={urlFor(data.image)}
+              src={urlFor(data[0].image)}
               alt="image for e-commerce"
               className="h-full w-28"
             />
@@ -80,7 +80,11 @@ export default function Header({ items = [] }) {
       </motion.div>
       {isClicked ? (
         <>
-          <CartView onIsClicked={setIsClicked} items={items} />
+          <CartView
+            onIsClicked={setIsClicked}
+            items={items}
+            isClicked={isClicked}
+          />
         </>
       ) : null}
     </>

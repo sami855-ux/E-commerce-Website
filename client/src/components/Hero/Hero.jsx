@@ -80,7 +80,7 @@ export default function Hero() {
       <div className="absolute z-0 w-2/3 h-full overflow-hidden right-36 ">
         {data && data.length > 0 ? (
           <img
-            src={urlFor(data[0]?.image)}
+            src={urlFor(data[1]?.image)}
             alt="peoples gathering in shopping"
             className="relative object-cover w-full h-full transform left-36"
           />
