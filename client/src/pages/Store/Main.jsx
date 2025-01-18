@@ -9,14 +9,16 @@ export default function Main() {
         <form className="flex items-center justify-between w-full gap-2 px-5 mb-7 bg-slate-50">
           <input
             type="text "
-            placeholder="Search for item..."
+            placeholder="Search for categories..."
             className="w-[70%] h-10 px-1 text-sm text-gray-600 outline-none bg-slate-50"
           />
           <CiSearch className="w-5 h-5 cursor-pointer" />
         </form>
 
         <div className="w-full ">
-          <h2 className="pb-5 text-sm font-semibold text-gray-800">Items</h2>
+          <h2 className="pb-5 text-sm font-semibold text-gray-800">
+            Categories
+          </h2>
           <p className="pl-3 mb-3 text-sm text-gray-700 cursor-pointer">
             Cloths
           </p>
