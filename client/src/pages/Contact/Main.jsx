@@ -5,8 +5,15 @@ import PropTypes from "prop-types"
 
 import image from "../../assets/slide11.jpg"
 import user from "../../assets/usertwo.png"
+import { useState } from "react"
 
 export default function Main() {
+  const [userName, setUserName] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
+
+  const handleMessage = () => {}
+
   return (
     <main className="w-full min-h-screen ">
       <div className="w-full min-h-[70vh] relative -top-20">
@@ -54,9 +61,19 @@ export default function Main() {
             <h2 className="text-2xl font-semibold text-gray-700 py-10">
               Contact us
             </h2>
-            <form className="w-full pr-10">
-              <FormInput text="User Name" type="text" />
-              <FormInput text="Your Email" type="email" />
+            <form className="w-full pr-10" onSubmit={handleMessage}>
+              <FormInput
+                text="User Name"
+                type="text"
+                value={userName}
+                handler={setUserName}
+              />
+              <FormInput
+                text="Your Email"
+                type="email"
+                value={email}
+                handler={setEmail}
+              />
               <div className="w-full">
                 <label className="text-sm text-gray-700 block mb-2">
                   Message
@@ -64,9 +81,19 @@ export default function Main() {
                 <textarea
                   className="min-w-full max-w-full min-h-[100px] max-h-[100px] w-full h-full p-2 border border-gray-300 rounded-md outline-none text-sm"
                   placeholder="Type something..."
+                  value={message}
+                  onChange={(e) => {
+                    if (!e.target.value) return
+
+                    setMessage(e.target.value)
+                  }}
                 ></textarea>
               </div>
-              <button className="w-44 h-10 border border-lightGreen bg-lightGreen text-sm text-white cursor-pointer mt-3">
+              <button
+                type="submit"
+                onClick={handleMessage}
+                className="w-44 h-10 border border-lightGreen bg-lightGreen text-sm text-white cursor-pointer mt-3"
+              >
                 Send
               </button>
             </form>
@@ -97,12 +124,17 @@ List.propTypes = {
   icon: PropTypes.string.isRequired,
 }
 
-const FormInput = ({ text, type }) => {
+const FormInput = ({ text, type, value, handler }) => {
   return (
     <div className="w-full my-6 ">
       <label className="text-sm text-gray-700 block mb-2">{text}</label>
       <input
         type={type}
+        value={value}
+        onChange={(e) => {
+          if (!e.target.value) return
+          handler(e.target.value)
+        }}
         className="border border-gray-300 rounded-md py-1 w-full outline-none px-2"
       />
     </div>
@@ -112,4 +144,6 @@ const FormInput = ({ text, type }) => {
 FormInput.propTypes = {
   text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  handler: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 }
