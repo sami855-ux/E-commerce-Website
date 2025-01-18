@@ -6,8 +6,7 @@ export default {
     {
       name: 'image',
       title: 'Image',
-      type: 'array',
-      of: [{type: 'image'}],
+      type: 'image',
       options: {
         maxLength: 90,
       },
@@ -19,6 +18,31 @@ export default {
       options: {
         hotspot: true,
       },
+    },
+    {
+      name: 'description',
+      title: 'Description',
+      type: 'string',
+    },
+    {
+      name: 'price',
+      title: 'Price',
+      type: 'number',
+    },
+    {
+      name: 'rating',
+      title: 'Rating',
+      type: 'number',
+    },
+    {
+      name: 'type',
+      title: 'Type',
+      type: 'string',
+    },
+    {
+      name: 'categories',
+      title: 'Categories',
+      type: 'string',
     },
     {
       name: 'slug',
