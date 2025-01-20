@@ -3,19 +3,40 @@ import { IoMailOpenOutline } from "react-icons/io5"
 import { CiMap } from "react-icons/ci"
 import PropTypes from "prop-types"
 
+import { useState, useRef } from "react"
+import emailjs from "@emailjs/browser"
+
 import image from "../../assets/slide11.jpg"
 import user from "../../assets/usertwo.png"
-import { useState } from "react"
 
 export default function Main() {
   const [userName, setUserName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
+  const form = useRef()
 
   const handleMessage = (e) => {
     e.preventDefault()
 
     if (!userName || !email || !message) return
+
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_SERVICE_ID,
+        import.meta.env.VITE_TEMPLATE_ID,
+        form.current,
+        {
+          publicKey: import.meta.env.VITE_PUBLIC_KEY,
+        }
+      )
+      .then(
+        () => {
+          console.log("SUCCESS!")
+        },
+        (error) => {
+          console.log("FAILED...", error.text)
+        }
+      )
   }
 
   return (
@@ -38,7 +59,7 @@ export default function Main() {
         <section className="w-full min-h-[75vh] flex justify-center items-center px-40 gap-4 py-16">
           <section className="w-1/2 h-full ">
             <img src={user} alt="User image" className="w-20 h-20" />
-            <p className="text-sm tracking-wider uppercase py-3">Say hello</p>
+            <p className="py-3 text-sm tracking-wider uppercase">Say hello</p>
             <h2 className="text-3xl font-semibold text-gray-700 capitalize">
               Get in touch with us
             </h2>
@@ -62,10 +83,10 @@ export default function Main() {
             </div>
           </section>
           <section className="w-1/2 h-full ">
-            <h2 className="text-2xl font-semibold text-gray-700 py-10">
+            <h2 className="py-10 text-2xl font-semibold text-gray-700">
               Contact us
             </h2>
-            <form className="w-full pr-10" onSubmit={handleMessage}>
+            <form className="w-full pr-10" onSubmit={handleMessage} ref={form}>
               <FormInput
                 text="User Name"
                 type="text"
@@ -79,10 +100,11 @@ export default function Main() {
                 handler={setEmail}
               />
               <div className="w-full">
-                <label className="text-sm text-gray-700 block mb-2">
+                <label className="block mb-2 text-sm text-gray-700">
                   Message
                 </label>
                 <textarea
+                  name="message"
                   className="min-w-full max-w-full min-h-[100px] max-h-[100px] w-full h-full p-2 border border-gray-300 rounded-md outline-none text-sm"
                   placeholder="Type something..."
                   value={message}
@@ -96,7 +118,7 @@ export default function Main() {
               <button
                 type="submit"
                 onClick={handleMessage}
-                className="w-44 h-10 border border-lightGreen bg-lightGreen text-sm text-white cursor-pointer mt-3"
+                className="h-10 mt-3 text-sm text-white border cursor-pointer w-44 border-lightGreen bg-lightGreen"
               >
                 Send
               </button>
@@ -110,8 +132,8 @@ export default function Main() {
 
 const List = ({ text, icon, main }) => {
   return (
-    <div className="w-full h-16 flex gap-4 items-center mb-2">
-      <span className="w-9 h-9 rounded-full bg-lightGreen flex items-center justify-center">
+    <div className="flex items-center w-full h-16 gap-4 mb-2">
+      <span className="flex items-center justify-center rounded-full w-9 h-9 bg-lightGreen">
         {icon}
       </span>
       <div className="">
@@ -131,15 +153,16 @@ List.propTypes = {
 const FormInput = ({ text, type, value, handler }) => {
   return (
     <div className="w-full my-6 ">
-      <label className="text-sm text-gray-700 block mb-2">{text}</label>
+      <label className="block mb-2 text-sm text-gray-700">{text}</label>
       <input
         type={type}
         value={value}
+        name={value}
         onChange={(e) => {
           if (!e.target.value) return
           handler(e.target.value)
         }}
-        className="border border-gray-300 rounded-md py-1 w-full outline-none px-2"
+        className="w-full px-2 py-1 border border-gray-300 rounded-md outline-none"
       />
     </div>
   )
