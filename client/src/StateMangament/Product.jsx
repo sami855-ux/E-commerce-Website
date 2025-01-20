@@ -25,10 +25,10 @@ const productSlice = createSlice({
       })
       .addCase(fetchData.fulfilled, (state, action) => {
         state.productData = action.payload // Update state with fetched data
-        state.loading = "ready" // Request completed
+        state.status = "ready" // Request completed
       })
       .addCase(fetchData.rejected, (state, action) => {
-        state.loading = "ready" // Request failed
+        state.status = "ready" // Request failed
         state.error = action.error.message // Capture the error
       })
   },
