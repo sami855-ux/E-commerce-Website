@@ -1,3 +1,4 @@
+import { ToastContainer, toast } from "react-toastify"
 import { FiPhoneCall } from "react-icons/fi"
 import { IoMailOpenOutline } from "react-icons/io5"
 import { CiMap } from "react-icons/ci"
@@ -5,15 +6,30 @@ import PropTypes from "prop-types"
 
 import { useState, useRef } from "react"
 import emailjs from "@emailjs/browser"
-
 import image from "../../assets/slide11.jpg"
 import user from "../../assets/usertwo.png"
+import "react-toastify/dist/ReactToastify.css"
 
 export default function Main() {
   const [userName, setUserName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
   const form = useRef()
+
+  const notify = (text) => {
+    toast(text, {
+      position: "top-center",
+      height: "50px",
+      width: "250px",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    })
+  }
 
   const handleMessage = (e) => {
     e.preventDefault()
@@ -31,10 +47,10 @@ export default function Main() {
       )
       .then(
         () => {
-          console.log("SUCCESS!")
+          notify("SUCCESS!")
         },
-        (error) => {
-          console.log("FAILED...", error.text)
+        () => {
+          notify("FAILED...")
         }
       )
   }
@@ -126,6 +142,7 @@ export default function Main() {
           </section>
         </section>
       </div>
+      <ToastContainer />
     </main>
   )
 }
