@@ -8,13 +8,6 @@ const initialState = {
 }
 
 export const fetchData = createAsyncThunk("data/fetchData", async () => {
-  //     const response = await fetch(endpoint)
-  //     if (!response.ok) {
-  //       throw new Error("Network response was not ok")
-  //     }
-  //     const data = await response.json()
-  //     return data // This will be the payload for fulfilled action
-
   const query = '*[_type == "product"]'
   const result = await client.fetch(query)
   return result
@@ -31,8 +24,8 @@ const productSlice = createSlice({
         state.error = null // Reset any previous errors
       })
       .addCase(fetchData.fulfilled, (state, action) => {
-        state.loading = "ready" // Request completed
         state.productData = action.payload // Update state with fetched data
+        state.loading = "ready" // Request completed
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.loading = "ready" // Request failed
