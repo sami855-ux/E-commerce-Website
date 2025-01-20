@@ -4,6 +4,8 @@
   --uib-speed: 1.2s;
   --uib-color: #474554;
   position: relative;
+  top: 200px;
+  left: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
