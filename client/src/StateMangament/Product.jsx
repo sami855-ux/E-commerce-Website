@@ -1,10 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { client } from "../../../server/lib/client"
 
+const ITEMS_PER_PAGE = 5
+
 const initialState = {
   productData: [],
   status: "loading",
   error: null,
+  totalPages: 0,
+  currentPage: 1,
+  dataPerPage: [],
 }
 
 export const fetchData = createAsyncThunk("data/fetchData", async () => {
@@ -16,7 +21,18 @@ export const fetchData = createAsyncThunk("data/fetchData", async () => {
 const productSlice = createSlice({
   name: "productSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    pageChange(state, action) {
+      console.log("hi")
+      if (action.payload > 0 && action.payload <= state.totalPages) {
+        state.currentPage = action.payload
+      }
+      const lastPostIndex = state.currentPage * ITEMS_PER_PAGE
+      const firstPostIndex = lastPostIndex - ITEMS_PER_PAGE
+
+      state.dataPerPage = state.productData.slice(firstPostIndex, lastPostIndex)
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchData.pending, (state) => {
@@ -26,6 +42,9 @@ const productSlice = createSlice({
       .addCase(fetchData.fulfilled, (state, action) => {
         state.productData = action.payload // Update state with fetched data
         state.status = "ready" // Request completed
+        state.totalPages = Math.ceil(action.payload.length / ITEMS_PER_PAGE)
+
+        state.dataPerPage = state.productData.slice(0, 5)
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.status = "ready" // Request failed
@@ -34,6 +53,6 @@ const productSlice = createSlice({
   },
 })
 
-// export const {} = productSlice.actions
+export const { pageChange } = productSlice.actions
 
 export default productSlice.reducer

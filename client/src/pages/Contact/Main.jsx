@@ -12,7 +12,11 @@ export default function Main() {
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
 
-  const handleMessage = () => {}
+  const handleMessage = (e) => {
+    e.preventDefault()
+
+    if (!userName || !email || !message) return
+  }
 
   return (
     <main className="w-full min-h-screen ">
