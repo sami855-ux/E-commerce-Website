@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { FaStar } from "react-icons/fa6"
 import PropTypes from "prop-types"
+import { Link } from "react-router-dom"
 
 import { fetchData } from "../../StateMangament/Product"
 import girlImage from "../../assets/gril.png"
@@ -64,7 +65,7 @@ const ShopMain = () => {
   const { status, dataPerPage } = useSelector((store) => store.productSlice)
 
   return (
-    <div className="grid justify-center w-full grid-cols-4 gap-2 min-h-fit">
+    <div className="grid justify-center w-full min-h-screen grid-cols-4 gap-2 min-h-fit">
       {status === "loading" && <Loader />}
       {status === "ready" &&
         dataPerPage.map((product, productIndex) => (
@@ -75,29 +76,31 @@ const ShopMain = () => {
 }
 
 const ShopList = ({ product }) => {
-  const { image, productName, price, rating, description } = product
+  const { image, productName, price, rating, description, _id } = product
 
   return (
-    <section className="w-[250px] h-[240px] bg-slate-200 mb-2 p-2 rounded-md shadow-md cursor-pointer">
-      <img
-        src={urlFor(image)}
-        alt="product image"
-        className="w-full h-[130px] object-contain"
-      />
-      <h2 className="px-1 pt-3 pb-1 font-semibold text-gray-700 capitalize">
-        {productName}
-      </h2>
-      <p className="px-1 text-xs font-light capitalize">{description}</p>
+    <Link to={`/store/${_id}`}>
+      <section className="w-[250px] h-[240px] bg-slate-200 mb-2 p-2 rounded-md shadow-md cursor-pointer">
+        <img
+          src={urlFor(image)}
+          alt="product image"
+          className="w-full h-[130px] object-contain"
+        />
+        <h2 className="px-1 pt-3 pb-1 font-semibold text-gray-700 capitalize">
+          {productName}
+        </h2>
+        <p className="px-1 text-xs font-light capitalize">{description}</p>
 
-      <section className="flex items-center justify-between w-full px-1 pt-2 h-fit">
-        <span className="text-xs text-blue-600">{`$${price}`}</span>
-        <section className="flex items-center w-32 h-5">
-          {Array.from({ length: rating }).map((_, index) => (
-            <FaStar stroke="orange" fill="orange" size={15} key={index} />
-          ))}
+        <section className="flex items-center justify-between w-full px-1 pt-2 h-fit">
+          <span className="text-xs text-blue-600">{`$${price}`}</span>
+          <section className="flex items-center w-32 h-5">
+            {Array.from({ length: rating }).map((_, index) => (
+              <FaStar stroke="orange" fill="orange" size={15} key={index} />
+            ))}
+          </section>
         </section>
       </section>
-    </section>
+    </Link>
   )
 }
 
