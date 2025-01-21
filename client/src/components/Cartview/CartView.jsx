@@ -1,6 +1,7 @@
 import PropTypes from "prop-types"
 import { FaXmark } from "react-icons/fa6"
 import { useDispatch, useSelector } from "react-redux"
+import styles from "./CartView.module.css"
 
 import { urlFor } from "../../../../server/lib/client"
 import {
@@ -9,7 +10,7 @@ import {
   increaseCount,
 } from "../../StateMangament/Product"
 
-export default function CartView({ items, onIsClicked, isClicked }) {
+export default function CartView({ onIsClicked, isClicked }) {
   const { cartData, totalPrice } = useSelector((store) => store.productSlice)
 
   return (
@@ -49,16 +50,29 @@ export default function CartView({ items, onIsClicked, isClicked }) {
         </div>
         <section className="w-full h-32  px-5 py-1">
           <div className="w-full h-7 flex items-center px-5 gap-7 mb-4">
-            <span className="font-semibold text-lg text-gray-700">
+            <span className="font-semibold text-lg text-gray-700 font-Poppins">
               SubTotal:
             </span>
-            <span className="font-semibold text-lg text-gray-700">
-              $ {totalPrice}
+            <span className="font-semibold text-lg text-gray-700 font-Poppins">
+              $ {`${totalPrice.toFixed(2)}`}
             </span>
           </div>
 
-          <button className=" text-sm font-Poppins w-72 px-4 py-1 h-8 bg-gradient-to-r from-blue-500 to-green-500 text-white cursor-pointer capitalize ">
+          <button
+            className={`${styles.button} text-sm font-Poppins bg-gradient-to-r from-blue-600 to-green-500 rounded-md`}
+          >
             Pay with strip
+            <svg
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              className={styles.icon}
+            >
+              <path
+                clipRule="evenodd"
+                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                fillRule="evenodd"
+              ></path>
+            </svg>
           </button>
         </section>
       </div>
@@ -109,7 +123,7 @@ const CardItem = ({ item }) => {
           </section>
 
           <span
-            onClick={() => dispatch(decreaseCount(item._id))}
+            onClick={() => dispatch(removeFromCart(item._id))}
             className="w-5 h-5 rounded-full bg-red-500 cursor-pointer flex items-center justify-center"
           >
             <FaXmark color="white" size={12} />
