@@ -6,8 +6,10 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 
 import CartView from "../Cartview/CartView"
 import { client, urlFor } from "../../../../server/lib/client"
+import { useSelector } from "react-redux"
 
 export default function Header({ items = [] }) {
+  const { cartData } = useSelector((store) => store.productSlice)
   const [isClicked, setIsClicked] = useState(false)
   const [data, setData] = useState([])
   const [hidden, setHidden] = useState(false)
@@ -71,12 +73,21 @@ export default function Header({ items = [] }) {
           <Link text="Contact" to="/contact" />
         </ul>
 
-        <span
-          className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer bg-lightGreen"
-          onClick={() => setIsClicked(true)}
-        >
-          <FaCartShopping color="white" />
-        </span>
+        <div className="relative w-fit h-full flex items-center justify-center">
+          <span
+            className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer bg-lightGreen"
+            onClick={() => setIsClicked(true)}
+          >
+            <FaCartShopping color="white" />
+          </span>
+
+          {cartData.length > 0 ? (
+            <span className="text-xs absolute top-2 right-0 w-4 h-4 rounded-full bg-lightGreen flex items-center justify-center">
+              {" "}
+              {cartData.length}
+            </span>
+          ) : null}
+        </div>
       </motion.div>
       {isClicked ? (
         <>
