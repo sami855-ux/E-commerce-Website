@@ -89,6 +89,20 @@ const productSlice = createSlice({
         0
       )
     },
+
+    changeCartData(state, action) {
+      const category = action.payload
+
+      if (category === "all") return
+
+      const categoricData = state.productData?.filter(
+        (data) => data.categories === category
+      )
+      console.log("hi")
+      console.log(categoricData)
+
+      state.productData = categoricData
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -116,6 +130,7 @@ export const {
   removeFromCart,
   increaseCount,
   decreaseCount,
+  changeCartData,
 } = productSlice.actions
 
 export default productSlice.reducer
