@@ -10,6 +10,7 @@ import Contact from "./pages/Contact/Contact.jsx"
 import Store from "./pages/Store/Store.jsx"
 import Product from "./pages/Store/Product.jsx"
 import AllProduct from "./pages/Store/AllProduct.jsx"
+import Blog from "./pages/Blog/Blog.jsx"
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         element: <Product />,
       },
     ],
+  },
+  {
+    path: "/blog",
+    element: <Blog />,
   },
 ])
 
